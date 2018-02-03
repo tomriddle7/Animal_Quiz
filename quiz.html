@@ -1,0 +1,116 @@
+<head>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:400,700" rel="stylesheet">
+<link href='style.css' rel='stylesheet' type='text/css'>
+<title>Animal Quiz Quiz</title>
+<link rel="icon" type="x-icon" href="icon.png">
+<link rel="shortcut icon" type="x-icon" href="icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6511426299019766",
+    enable_page_level_ads: true
+  });
+</script>
+</head>
+<body>
+<script type="application/javascript" charset="UTF-8"
+        src="questions.js">
+</script>
+<h1>Animal Quiz</h1>
+<hr>
+<h2 style="text-align:center;" id="question-number">Loading...</h2>
+<img src="" id="question-image" class="center"></img>
+<p class="question" id="question-text"></p>
+<button class="button" onclick="check_question( 1.0)" style="background-color: #000000;">예</button> <br>
+<button class="button" onclick="check_question(-1.0)" style="background-color: #bbbbbb;">아니오</button> <br>
+<div id="AnswerArea">
+    <img src="" id="answer-image" class="center"></img>
+    <p class="answer" id="answer-text"></p>
+    <button class="small_button" onclick="next_question()" style="background-color: #333;">다음</button> <br>
+</div>
+<button class="small_button" onclick="prev_question()" id="back_button">이전</button>
+<button class="small_button_off" id="back_button_off">이전</button><br>
+
+<!-- Website visit statistics - no personal information is collected! 
+<script type="text/javascript">
+var sc_project=11325211;
+var sc_invisible=1;
+var sc_security="fd9f0659";
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="web stats"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11325211/0/fd9f0659/1/" alt="web
+stats"></a></div></noscript>
+-->
+<!-- JavaScript for the test itself -->
+<script>
+    var max_econ, max_dipl, max_govt, max_scty; // Max possible scores
+    max_econ = max_dipl = max_govt = max_scty = 0;
+    var econ = 0; // User's scores
+    var qn = 0; // Question number
+    var prev_answer = null;
+    init_question();
+    for (var i = 0; i < questions.length; i++) {
+        max_econ += Math.abs(questions[i].effect.econ)
+    }
+    function init_question() {
+        document.getElementById("question-text").innerHTML = questions[qn].question;
+        document.getElementById("question-image").src = questions[qn].image;
+        document.getElementById("question-number").innerHTML = "문제 " + (qn + 1) + "/" + (questions.length);
+        document.getElementById("answer-text").innerHTML = questions[qn].answer;
+        document.getElementById("AnswerArea").style.display = 'none';
+        if (prev_answer == null) {
+            document.getElementById("back_button").style.display = 'none';
+            document.getElementById("back_button_off").style.display = 'block';
+        } else {
+            document.getElementById("back_button").style.display = 'block';
+            document.getElementById("back_button_off").style.display = 'none';
+        }
+
+    }
+
+    function check_question(mult) {
+        econ += mult*questions[qn].effect.econ
+        if (mult*questions[qn].effect.econ >= 0) {
+            document.getElementById("answer-image").src = "images/result-good.png";
+        } else {
+            document.getElementById("answer-image").src = "images/result-again.png";
+        }
+        document.getElementById("AnswerArea").style.display = 'block';
+        prev_answer = mult;
+    }
+    function next_question() {
+        qn++;
+        if (qn < questions.length) {
+            init_question();
+        } else {
+            results();
+        }
+    }
+    function prev_question() {
+        if (prev_answer == null) {
+            return;
+        }
+        qn--;
+        econ -= prev_answer * questions[qn].effect.econ;
+        prev_answer = null;
+        init_question();
+
+    }
+    function calc_score(score,max) {
+        return (100*(max+score)/(2*max)).toFixed(1)
+    }
+    function results() {
+        location.href = `results.html`
+            + `?e=${calc_score(econ,max_econ)}`
+    }
+</script>
+</body>

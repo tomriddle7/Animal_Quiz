@@ -1,0 +1,73 @@
+<head>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:400,700" rel="stylesheet">
+<link href='style.css' rel='stylesheet' type='text/css'>
+<title>Animal Quiz 결과</title>
+<link rel="icon" type="x-icon" href="icon.png">
+<link rel="shortcut icon" type="x-icon" href="icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+</head>
+
+<body>
+<h1>Animal Quiz</h1>
+<hr>
+
+<h1>결과</h1>
+
+<h2 class="center">당신의 동물지식은</h2>
+<p class="weight-300 center" id="economic-label"></p>
+<img src="" id="diplomatic-label" class="center"></img>
+<p class="weight-300 center" id="state-label"></p>
+<hr/>
+<button class="button" onclick="location.href='index.html';">처음으로</button> <br>
+<!-- Website visit statistics - no personal information is collected! 
+<script type="text/javascript">
+var sc_project=11325211;
+var sc_invisible=1;
+var sc_security="fd9f0659";
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="web stats"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11325211/0/fd9f0659/1/" alt="web
+stats"></a></div></noscript>-->
+<script>
+    function getQueryVariable(variable)
+    {
+           var query = window.location.search.substring(1)
+           var vars = query.split("&")
+           for (var i=0;i<vars.length;i++) {
+                   var pair = vars[i].split("=")
+                   if(pair[0] == variable) {return pair[1]}
+           }
+           return(NaN);
+    }
+
+    econArray = '완벽해요!, 훌륭하군요!, 힘내세요!, 조금만 더!'.split(', ')
+    diplArray = 'images/result-1.png, images/result-2.png, images/result-3.png, images/result-4.png'.split(', ')
+    govtArray = '그야말로 동물박사시군요!$동물에 대해 아주 잘 알고 계신 당신!$동물에 관심이 많으시군요!$동물에게 조금만 더 관심을 주시는 건 어떨까요?'.split('$')
+
+    function setLabel(val,ary) {
+        if (val > 100) { return "" } else
+        if (val > 90) { return ary[0] } else
+        if (val > 60) { return ary[1] } else
+        if (val >= 30) { return ary[2] } else
+        if (val >= 0) { return ary[3] } else
+        	{return ""}
+    }
+
+    equality  = getQueryVariable("e")
+    wealth    = (100 - equality).toFixed(1)
+
+    document.getElementById("economic-label").innerHTML = setLabel(equality, econArray)
+    document.getElementById("diplomatic-label").src = setLabel(equality, diplArray)
+    document.getElementById("state-label").innerHTML = setLabel(equality, govtArray)
+
+
+    </script>
+</body>
